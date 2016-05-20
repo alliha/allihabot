@@ -20,6 +20,11 @@ async def on_message(message):
         messageSplit = message.content.split()
         command = messageSplit[0][1:]
         await handle_command(command, message, messageSplit)
+    elif 'did it \U0001F612 \U0001F52B' in message.content:
+        await client.send_message(message.channel, 'Nuck Fadeko')
+    elif '~cp' == message.content:
+        await client.send_file(message.channel, 'img\\cp.png')
+
 
 async def handle_command(command, message, messageSplit):
 
@@ -40,7 +45,10 @@ async def handle_command(command, message, messageSplit):
         await client.send_file(message.channel, 'img\what.png')
 
     elif command == 'addimage':
-        urllib.request.urlretrieve(messageSplit[1], 'img\\' + messageSplit[2] + '.png')
+        if messageSplit[1].endswith('.gif'):
+            urllib.request.urlretrieve(messageSplit[1], 'img\\' + messageSplit[2] + '.gif')
+        else:
+            urllib.request.urlretrieve(messageSplit[1], 'img\\' + messageSplit[2] + '.png')
 
     #elif command == 'sleep':
     #    await asyncio.sleep(5)
@@ -53,5 +61,7 @@ async def handle_command(command, message, messageSplit):
     else:
         if os.path.isfile('img\\' + command + '.png'):
             await client.send_file(message.channel, 'img\\' + command + '.png')
+        elif os.path.isfile('img\\' + command + '.gif'):
+            await client.send_file(message.channel, 'img\\' + command + '.gif')
 
-client.run('botemail', 'botpassword')
+client.run('email', 'password')
